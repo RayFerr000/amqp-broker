@@ -1,6 +1,6 @@
 const amqp = require('amqplib');
 const _ = require('lodash');
-require('dotenv').config();
+import config from 'config'
 
 
 /**
@@ -28,7 +28,7 @@ class MessageBroker {
    */
 
    async init() {
-     this.connection = await amqp.connect(process.env.CLOUDAMQP_URL || 'amqp://localhost');
+     this.connection = await amqp.connect(config.amqp.hostURL || 'amqp://localhost');
      this.channel = await this.connection.createChannel();
      return this;
    }
